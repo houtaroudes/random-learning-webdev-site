@@ -8,18 +8,17 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .container{width:100%;max-width:640px;text-align:center}
-.demo-title{color:#fff;margin-bottom:32px;font-size:1.8rem;font-weight:300}
-.demo-title span{color:#f59e0b;font-weight:600}
+.title{color:#fff;margin-bottom:8px;font-size:1.5rem;font-weight:300}
+.title em{font-style:normal;color:#f59e0b;font-weight:600}
+.sub{color:rgba(255,255,255,0.2);margin-bottom:32px;font-size:.85rem}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .hover-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:28px 16px;text-align:center;transition:all .3s cubic-bezier(.16,1,.3,1);cursor:pointer;position:relative;overflow:hidden}
-.hover-card::after{content:'';position:absolute;inset:0;border-radius:16px;opacity:0;transition:opacity .3s;pointer-events:none}
 .hover-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,0.2)}
 .hover-card:active{transform:translateY(-2px) scale(1.01)}
-.hover-card .emoji{font-size:2rem;margin-bottom:10px;display:block;transition:transform .3s}
-.hover-card:hover .emoji{transform:scale(1.2) rotate(-5deg)}
+.hover-card .hc-letter{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:.75rem;font-weight:700;color:#fff;transition:transform .3s}
+.hover-card:hover .hc-letter{transform:scale(1.15) rotate(-5deg)}
 .hover-card .title{color:#fff;font-size:.9rem;font-weight:600;margin-bottom:4px}
 .hover-card .desc{color:rgba(255,255,255,0.25);font-size:.75rem}
-.hover-card .glow{position:absolute;inset:0;border-radius:16px;opacity:0;transition:opacity .3s;pointer-events:none}
 .card-lift{transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
 .card-lift:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,0.2)}
 .card-scale{transition:transform .3s}
@@ -30,21 +29,22 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 .card-border:hover{border-color:#58a6ff;background:rgba(88,166,255,0.04)}
 .card-3d{transition:all .3s;transform-style:preserve-3d}
 .card-3d:hover{transform:perspective(500px) rotateX(4deg) rotateY(-4deg);box-shadow:12px 16px 30px rgba(0,0,0,0.2)}
-.card-glow-hover{position:relative}
 .card-glow-hover:hover{box-shadow:0 0 30px rgba(167,128,255,0.15);border-color:rgba(167,128,255,0.2);background:rgba(167,128,255,0.04)}
 @media(max-width:500px){.grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="container">
-<h1 class="demo-title">🃏 <span>Hover</span> Effects</h1>
+<div class="title">Hover <em>Effects</em></div>
+<div class="sub">Six different hover interaction styles</div>
 <div class="grid">
-<div class="hover-card card-lift" style="--c:rgba(88,166,255,0.06)"><span class="emoji">⬆️</span><div class="title">Lift</div><div class="desc">Slide up + shadow</div></div>
-<div class="hover-card card-scale" style="--c:rgba(255,63,156,0.06)"><span class="emoji">🔍</span><div class="title">Scale</div><div class="desc">Zoom in smoothly</div></div>
-<div class="hover-card card-rotate" style="--c:rgba(255,209,102,0.06)"><span class="emoji">🔄</span><div class="title">Tilt</div><div class="desc">3D perspective</div></div>
-<div class="hover-card card-border"><span class="emoji">🎯</span><div class="title">Border</div><div class="desc">Glow outline</div></div>
-<div class="hover-card card-3d"><span class="emoji">🧊</span><div class="title">3D Tilt</div><div class="desc">Full 3D effect</div></div>
-<div class="hover-card card-glow-hover"><span class="emoji">💫</span><div class="title">Glow</div><div class="desc">Light burst</div></div>
+<div class="hover-card card-lift"><div class="hc-letter" style="background:#58a6ff">L</div><div class="title">Lift</div><div class="desc">Slide up + shadow</div></div>
+<div class="hover-card card-scale"><div class="hc-letter" style="background:#ff3f9c">S</div><div class="title">Scale</div><div class="desc">Zoom in smoothly</div></div>
+<div class="hover-card card-rotate"><div class="hc-letter" style="background:#ffd166">T</div><div class="title">Tilt</div><div class="desc">3D perspective</div></div>
+<div class="hover-card card-border"><div class="hc-letter" style="background:#58a6ff">B</div><div class="title">Border</div><div class="desc">Glow outline</div></div>
+<div class="hover-card card-3d"><div class="hc-letter" style="background:#a780ff">3</div><div class="title">3D Tilt</div><div class="desc">Full 3D effect</div></div>
+<div class="hover-card card-glow-hover"><div class="hc-letter" style="background:#f59e0b">G</div><div class="title">Glow</div><div class="desc">Light burst</div></div>
+</div>
 </div>
 </body>
 </html>

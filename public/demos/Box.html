@@ -8,8 +8,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .container{width:100%;max-width:580px;text-align:center}
-.demo-title{color:#fff;margin-bottom:32px;font-size:1.8rem;font-weight:300}
-.demo-title span{color:#f59e0b;font-weight:600}
+.title{color:#fff;margin-bottom:8px;font-size:1.5rem;font-weight:300}
+.title em{font-style:normal;color:#f59e0b;font-weight:600}
+.sub{color:rgba(255,255,255,0.2);margin-bottom:32px;font-size:.85rem}
 .workspace{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:32px;backdrop-filter:blur(12px)}
 .visual-box-wrapper{display:flex;justify-content:center;margin-bottom:32px}
 .visual-box{margin:24px;border:20px solid #f59e0b33;padding:20px;background:#0d1117;display:inline-block}
@@ -28,7 +29,8 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 </head>
 <body>
 <div class="container">
-<h1 class="demo-title">📦 <span>Box</span> Model</h1>
+<div class="title">Box <em>Model</em></div>
+<div class="sub">Interactive CSS box model explorer</div>
 <div class="workspace">
 <div class="visual-box-wrapper">
 <div class="visual-box" id="boxModel">
@@ -36,52 +38,18 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 </div>
 </div>
 <div class="controls">
-<div class="control-row">
-<span class="label">Padding</span>
-<input type="range" id="paddingSlider" min="4" max="60" value="20">
-<span class="value" id="paddingValue">20px</span>
-</div>
-<div class="control-row">
-<span class="label">Border</span>
-<input type="range" id="borderSlider" min="2" max="40" value="20">
-<span class="value" id="borderValue">20px</span>
-</div>
-<div class="control-row">
-<span class="label">Margin</span>
-<input type="range" id="marginSlider" min="4" max="60" value="24">
-<span class="value" id="marginValue">24px</span>
-</div>
-</div>
-<div class="box-info">
-<div class="info-item"><div class="info-label">Content W</div><div class="info-value" id="contentWidth">120px</div></div>
-<div class="info-item"><div class="info-label">Content H</div><div class="info-value" id="contentHeight">80px</div></div>
-<div class="info-item"><div class="info-label">Total W</div><div class="info-value" id="totalWidth">200px</div></div>
-<div class="info-item"><div class="info-label">Total H</div><div class="info-value" id="totalHeight">160px</div></div>
+<div class="control-row"><span class="label">Padding</span><input type="range" id="paddingSlider" min="4" max="60" value="20"><span class="value" id="paddingValue">20px</span></div>
+<div class="control-row"><span class="label">Border</span><input type="range" id="borderSlider" min="2" max="40" value="20"><span class="value" id="borderValue">20px</span></div>
+<div class="control-row"><span class="label">Margin</span><input type="range" id="marginSlider" min="4" max="60" value="24"><span class="value" id="marginValue">24px</span></div>
 </div>
 </div>
 </div>
 <script>
-const box = document.getElementById('boxModel');
-const paddingSlider = document.getElementById('paddingSlider');
-const borderSlider = document.getElementById('borderSlider');
-const marginSlider = document.getElementById('marginSlider');
-const paddingValue = document.getElementById('paddingValue');
-const borderValue = document.getElementById('borderValue');
-const marginValue = document.getElementById('marginValue');
-function update() {
-const p = parseInt(paddingSlider.value);
-const b = parseInt(borderSlider.value);
-const m = parseInt(marginSlider.value);
-box.style.padding = p + 'px';
-box.style.borderWidth = b + 'px';
-box.style.margin = m + 'px';
-paddingValue.textContent = p + 'px';
-borderValue.textContent = b + 'px';
-marginValue.textContent = m + 'px';
-}
-paddingSlider.addEventListener('input', update);
-borderSlider.addEventListener('input', update);
-marginSlider.addEventListener('input', update);
+const box=document.getElementById('boxModel');
+const ps=document.getElementById('paddingSlider'),bs=document.getElementById('borderSlider'),ms=document.getElementById('marginSlider');
+const pv=document.getElementById('paddingValue'),bv=document.getElementById('borderValue'),mv=document.getElementById('marginValue');
+function update(){const p=parseInt(ps.value),b=parseInt(bs.value),m=parseInt(ms.value);box.style.padding=p+'px';box.style.borderWidth=b+'px';box.style.margin=m+'px';pv.textContent=p+'px';bv.textContent=b+'px';mv.textContent=m+'px';}
+ps.addEventListener('input',update);bs.addEventListener('input',update);ms.addEventListener('input',update);
 </script>
 </body>
 </html>

@@ -8,8 +8,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .container{width:100%;max-width:520px}
-.demo-title{color:#fff;text-align:center;margin-bottom:32px;font-size:1.8rem;font-weight:300}
-.demo-title span{color:#4ade80;font-weight:600}
+.title{color:#fff;text-align:center;margin-bottom:8px;font-size:1.5rem;font-weight:300}
+.title em{font-style:normal;color:#4ade80;font-weight:600}
+.sub{color:rgba(255,255,255,0.2);text-align:center;margin-bottom:32px;font-size:.85rem}
 .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:36px 28px;backdrop-filter:blur(12px)}
 .progress-group{margin-bottom:24px}
 .progress-group:last-child{margin-bottom:0}
@@ -22,7 +23,7 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 @keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 .fill-html{background:linear-gradient(90deg,#e34f26,#f06529)}
 .fill-css{background:linear-gradient(90deg,#1572b6,#33a9dc)}
-.fill-js{background:linear-gradient(90deg,#f7df1e,#ffd700);color:#0d1117}
+.fill-js{background:linear-gradient(90deg,#f7df1e,#ffd700)}
 .fill-react{background:linear-gradient(90deg,#61dafb,#00bcd4)}
 .fill-ts{background:linear-gradient(90deg,#3178c6,#5c8dd6)}
 .controls{display:flex;gap:12px;margin-top:28px;justify-content:center}
@@ -35,7 +36,8 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 </head>
 <body>
 <div class="container">
-<h1 class="demo-title">📊 <span>Progress</span> Bars</h1>
+<div class="title">Progress <em>Bars</em></div>
+<div class="sub">Smooth fill animation with percentage display</div>
 <div class="card">
 <div class="progress-group">
 <div class="progress-header"><span class="progress-label">HTML</span><span class="progress-pct" id="pct1">0%</span></div>
@@ -58,7 +60,7 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 <div class="progress-track"><div class="progress-fill fill-ts" id="bar5" style="width:0%"></div></div>
 </div>
 <div class="controls">
-<button class="btn-animate" id="animateBtn">▶ Animate</button>
+<button class="btn-animate" id="animateBtn">Animate</button>
 <button class="btn-reset" id="resetBtn">Reset</button>
 </div>
 </div>
@@ -68,15 +70,9 @@ const targets = [92, 85, 78, 65, 55];
 const bars = [1,2,3,4,5].map(i => document.getElementById(`bar${i}`));
 const pcts = [1,2,3,4,5].map(i => document.getElementById(`pct${i}`));
 function animate() {
-bars.forEach((bar, i) => {
-const target = targets[i];
-bar.style.width = `${target}%`;
-pcts[i].textContent = `${target}%`;
-});
+bars.forEach((bar, i) => { const t=targets[i]; bar.style.width=`${t}%`; pcts[i].textContent=`${t}%`; });
 }
-function reset() {
-bars.forEach((bar, i) => { bar.style.width = '0%'; pcts[i].textContent = '0%'; });
-}
+function reset() { bars.forEach((b,i) => { b.style.width='0%'; pcts[i].textContent='0%'; }); }
 document.getElementById('animateBtn').addEventListener('click', animate);
 document.getElementById('resetBtn').addEventListener('click', reset);
 setTimeout(animate, 500);

@@ -7,111 +7,61 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0f0c29,#1a1a3e,#24243e);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.container{width:100%;max-width:520px}
-.demo-title{color:#fff;text-align:center;margin-bottom:32px;font-size:1.8rem;font-weight:300}
-.demo-title span{color:#6c63ff;font-weight:600}
+.container{width:100%;max-width:520px;text-align:center}
+.title{color:#fff;margin-bottom:8px;font-size:1.5rem;font-weight:300}
+.title em{font-style:normal;color:#6c63ff;font-weight:600}
+.sub{color:rgba(255,255,255,0.2);margin-bottom:32px;font-size:.85rem}
 .upload-zone{background:rgba(255,255,255,0.03);border:2px dashed rgba(255,255,255,0.12);border-radius:20px;padding:48px 24px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
 .upload-zone:hover,.upload-zone.dragover{border-color:#6c63ff;background:rgba(108,99,255,0.04);box-shadow:0 0 30px rgba(108,99,255,0.06)}
-.upload-zone .icon{font-size:3rem;margin-bottom:12px;display:block}
-.upload-zone .title{color:#fff;font-size:1.1rem;margin-bottom:6px}
-.upload-zone .hint{color:rgba(255,255,255,0.25);font-size:.85rem}
-.upload-zone .hint strong{color:rgba(255,255,255,0.4)}
+.upload-zone .uz-icon{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:.85rem;color:rgba(255,255,255,0.3)}
+.upload-zone .uz-title{color:#fff;font-size:1.1rem;margin-bottom:6px}
+.upload-zone .uz-hint{color:rgba(255,255,255,0.25);font-size:.82rem}
+.upload-zone .uz-hint strong{color:rgba(255,255,255,0.4)}
 input[type="file"]{display:none}
 .upload-list{margin-top:20px;display:flex;flex-direction:column;gap:8px}
 .file-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;animation:slideIn .3s ease}
 @keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.file-icon{font-size:1.5rem;flex-shrink:0}
-.file-info{flex:1;min-width:0}
-.file-name{color:#fff;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.file-size{color:rgba(255,255,255,0.3);font-size:.75rem;margin-top:2px}
-.file-progress{flex:0 0 120px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
-.file-progress .bar{height:100%;background:linear-gradient(90deg,#6c63ff,#a780ff);border-radius:3px;width:0%;transition:width .4s ease}
-.file-progress .bar.done{background:linear-gradient(90deg,#4ade80,#6ee7b7)}
-.file-status{font-size:.75rem;color:rgba(255,255,255,0.3);min-width:40px;text-align:right}
-.file-remove{background:none;border:none;color:rgba(255,255,255,0.15);cursor:pointer;font-size:1.1rem;padding:4px;border-radius:50%;transition:all .2s}
-.file-remove:hover{color:#ff6b6b;background:rgba(255,107,107,0.1)}
-.upload-btn{margin-top:16px;width:100%;padding:12px;background:#6c63ff;border:none;border-radius:12px;color:#fff;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:none}
+.file-item .fi-type{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:#fff;flex-shrink:0}
+.file-item .fi-info{flex:1;min-width:0;text-align:left}
+.file-item .fi-name{color:#fff;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-item .fi-size{color:rgba(255,255,255,0.3);font-size:.7rem;margin-top:2px}
+.file-item .fi-progress{flex:0 0 120px;height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.file-item .fi-progress .bar{height:100%;background:linear-gradient(90deg,#6c63ff,#a780ff);border-radius:3px;width:0%;transition:width .4s ease}
+.file-item .fi-progress .bar.done{background:linear-gradient(90deg,#4ade80,#6ee7b7)}
+.file-item .fi-status{font-size:.7rem;color:rgba(255,255,255,0.3);min-width:30px;text-align:right}
+.file-item .fi-remove{background:none;border:none;color:rgba(255,255,255,0.15);cursor:pointer;font-size:.85rem;padding:4px;border-radius:50%;transition:all .2s}
+.file-item .fi-remove:hover{color:#ff6b6b;background:rgba(255,107,107,0.1)}
+.upload-btn{margin-top:16px;width:100%;padding:12px;background:#6c63ff;border:none;border-radius:12px;color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:none}
 .upload-btn.visible{display:block}
 .upload-btn:hover{background:#7c73ff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(108,99,255,0.3)}
 </style>
 </head>
 <body>
 <div class="container">
-<h1 class="demo-title">📁 <span>Upload</span> System</h1>
+<div class="title">Upload <em>System</em></div>
+<div class="sub">Drag and drop or browse to upload</div>
 <div class="upload-zone" id="dropZone">
-<span class="icon">☁️</span>
-<div class="title">Drop files here</div>
-<div class="hint">or <strong>browse</strong> to select files</div>
+<div class="uz-icon">+</div>
+<div class="uz-title">Drop files here</div>
+<div class="uz-hint">or <strong>browse</strong> to select files</div>
 </div>
 <input type="file" id="fileInput" multiple>
 <div class="upload-list" id="uploadList"></div>
-<button class="upload-btn" id="uploadBtn">⬆ Upload All Files</button>
+<button class="upload-btn" id="uploadBtn">Upload All Files</button>
 </div>
 <script>
-const dropZone = document.getElementById('dropZone');
-const fileInput = document.getElementById('fileInput');
-const uploadList = document.getElementById('uploadList');
-const uploadBtn = document.getElementById('uploadBtn');
-let files = [];
-function formatSize(bytes) {
-if (bytes < 1024) return bytes + ' B';
-if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-return (bytes / 1048576).toFixed(1) + ' MB';
-}
-function addFiles(newFiles) {
-for (const f of newFiles) {
-if (!files.some(ex => ex.name === f.name && ex.size === f.size)) {
-files.push({ file: f, progress: 0, done: false });
-}
-}
-renderFiles();
-}
-function renderFiles() {
-uploadList.innerHTML = files.map((f, i) => {
-const progress = f.done ? 100 : f.progress;
-return `<div class="file-item" data-index="${i}">
-<div class="file-icon">${f.file.type.startsWith('image/') ? '🖼️' : '📄'}</div>
-<div class="file-info">
-<div class="file-name">${f.file.name}</div>
-<div class="file-size">${formatSize(f.file.size)}</div>
-</div>
-<div class="file-progress"><div class="bar ${f.done?'done':''}" style="width:${progress}%"></div></div>
-<div class="file-status">${f.done ? '✅' : f.progress > 0 ? f.progress + '%' : ''}</div>
-<button class="file-remove" data-index="${i}">✕</button>
-</div>`;
-}).join('');
-uploadBtn.classList.toggle('visible', files.length > 0);
-document.querySelectorAll('.file-remove').forEach(btn => {
-btn.addEventListener('click', (e) => {
-const idx = parseInt(btn.dataset.index);
-files.splice(idx, 1);
-renderFiles();
-});
-});
-}
-dropZone.addEventListener('click', () => fileInput.click());
-dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
-dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); addFiles(Array.from(e.dataTransfer.files)); });
-fileInput.addEventListener('change', () => { addFiles(Array.from(fileInput.files)); fileInput.value = ''; });
-uploadBtn.addEventListener('click', () => {
-let completed = 0;
-files.forEach((f, i) => {
-if (f.done) { completed++; return; }
-f.progress = 0;
-let p = 0;
-const iv = setInterval(() => {
-p += Math.random() * 15 + 5;
-if (p >= 100) { p = 100; clearInterval(iv); f.done = true; completed++; }
-f.progress = Math.min(p, 100);
-renderFiles();
-if (completed === files.length) {
-uploadBtn.textContent = '✅ All Uploaded!';
-setTimeout(() => { uploadBtn.textContent = '⬆ Upload All Files'; }, 2000);
-}
-}, 200);
-});
-});
+const dropZone=document.getElementById('dropZone'),fileInput=document.getElementById('fileInput'),uploadList=document.getElementById('uploadList'),uploadBtn=document.getElementById('uploadBtn');
+let files=[];
+function fmt(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(1)+' MB';}
+function addFiles(fl){for(const f of fl){if(!files.some(e=>e.name===f.name&&e.size===f.size))files.push({file:f,progress:0,done:false});}render();}
+function render(){uploadList.innerHTML=files.map((f,i)=>{const p=f.done?100:f.progress;const isImg=f.file.type.startsWith('image/');return'<div class="file-item" data-index="'+i+'"><div class="fi-type" style="background:'+(isImg?'#6c63ff':'#8489bd')+'">'+(isImg?'IM':'FL')+'</div><div class="fi-info"><div class="fi-name">'+f.file.name+'</div><div class="fi-size">'+fmt(f.file.size)+'</div></div><div class="fi-progress"><div class="bar '+(f.done?'done':'')+'" style="width:'+p+'%"></div></div><div class="fi-status">'+(f.done?'OK':f.progress>0?f.progress+'%':'')+'</div><button class="fi-remove" data-index="'+i+'">x</button></div>';}).join('');
+uploadBtn.classList.toggle('visible',files.length>0);document.querySelectorAll('.fi-remove').forEach(b=>{b.addEventListener('click',()=>{files.splice(parseInt(b.dataset.index),1);render();});});}
+dropZone.addEventListener('click',()=>fileInput.click());
+dropZone.addEventListener('dragover',(e)=>{e.preventDefault();dropZone.classList.add('dragover');});
+dropZone.addEventListener('dragleave',()=>dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop',(e)=>{e.preventDefault();dropZone.classList.remove('dragover');addFiles(Array.from(e.dataTransfer.files));});
+fileInput.addEventListener('change',()=>{addFiles(Array.from(fileInput.files));fileInput.value='';});
+uploadBtn.addEventListener('click',()=>{let done=0;files.forEach((f,i)=>{if(f.done){done++;return;}f.progress=0;let p=0;const iv=setInterval(()=>{p+=Math.random()*15+5;if(p>=100){p=100;clearInterval(iv);f.done=true;done++;}f.progress=Math.min(p,100);render();if(done===files.length){uploadBtn.textContent='All Uploaded';setTimeout(()=>{uploadBtn.textContent='Upload All Files';},2000);}},200);});});
 </script>
 </body>
 </html>

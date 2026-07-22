@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GSAP Cursor Trail Demo</title>
+<title>Cursor Trail Demo</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',sans-serif;background:#0d1117;min-height:100vh;cursor:none;overflow:hidden}
@@ -11,88 +11,50 @@ body{font-family:'Segoe UI',sans-serif;background:#0d1117;min-height:100vh;curso
 .cursor-ring{position:fixed;pointer-events:none;z-index:9998;width:40px;height:40px;border:2px solid rgba(88,166,255,0.3);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
 .trail{position:fixed;pointer-events:none;z-index:9990;width:6px;height:6px;border-radius:50%;transform:translate(-50%,-50%);opacity:0}
 .content{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
+.content .deco{width:40px;height:3px;background:rgba(255,255,255,0.1);border-radius:2px;margin-bottom:16px}
 .content h1{color:#fff;font-size:clamp(2rem,5vw,3rem);margin-bottom:16px}
-.content h1 span{color:#58a6ff}
+.content h1 em{font-style:normal;color:#58a6ff}
 .content p{color:rgba(255,255,255,0.3);max-width:460px;font-size:1.05rem;line-height:1.7}
 .hover-targets{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap;justify-content:center}
-.hover-target{padding:16px 28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;color:rgba(255,255,255,0.5);font-size:.9rem;transition:all .3s;cursor:none;position:relative}
+.hover-target{padding:16px 28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;color:rgba(255,255,255,0.5);font-size:.9rem;transition:all .3s;cursor:none}
 .hover-target:hover{background:rgba(88,166,255,0.06);border-color:rgba(88,166,255,0.2);color:#58a6ff;transform:translateY(-2px)}
-.hover-target:hover ~ .cursor-dot{width:12px;height:12px;background:#fff}
 </style>
 </head>
 <body>
 <div class="cursor-dot" id="dot"></div>
 <div class="cursor-ring" id="ring"></div>
 <div class="content">
-<h1>✨ <span>Cursor</span> Trail</h1>
+<div class="deco"></div>
+<h1>Cursor <em>Trail</em></h1>
 <p>Move your mouse around to see the trailing effect. Hover over elements for interactive feedback.</p>
 <div class="hover-targets">
-<div class="hover-target">🖱️ Hover Me</div>
-<div class="hover-target">✨ Over Here</div>
-<div class="hover-target">🎯 Click Target</div>
+<div class="hover-target">Hover Me</div>
+<div class="hover-target">Over Here</div>
+<div class="hover-target">Click Target</div>
 </div>
 </div>
 <script>
-const dot = document.getElementById('dot');
-const ring = document.getElementById('ring');
-let mouseX = 0, mouseY = 0;
-let ringX = 0, ringY = 0;
-const trails = [];
-const colors = ['#58a6ff','#ff6b9d','#f59e0b','#4ade80','#a780ff','#ff6b6b'];
-for (let i = 0; i < 12; i++) {
-const trail = document.createElement('div');
-trail.className = 'trail';
-trail.style.background = colors[i % colors.length];
-trail.style.width = `${6 - i * 0.25}px`;
-trail.style.height = `${6 - i * 0.25}px`;
-trail.dataset.x = mouseX;
-trail.dataset.y = mouseY;
-document.body.appendChild(trail);
-trails.push(trail);
+const dot=document.getElementById('dot'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+const trails=[],colors=['#58a6ff','#ff6b9d','#f59e0b','#4ade80','#a780ff','#ff6b6b'];
+for(let i=0;i<12;i++){const t=document.createElement('div');t.className='trail';t.style.background=colors[i%colors.length];t.style.width=(6-i*0.25)+'px';t.style.height=(6-i*0.25)+'px';t.dataset.x=mx;t.dataset.y=my;document.body.appendChild(t);trails.push(t);}
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';});
+document.querySelectorAll('.hover-target').forEach(el=>{
+el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='#58a6ff';});
+el.addEventListener('mouseleave',()=>{ring.style.width='40px';ring.style.height='40px';ring.style.borderColor='rgba(88,166,255,0.3)';});
+});
+function animate(){
+rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';
+let px=mx,py=my;
+trails.forEach((t,i)=>{
+const dx=px-parseFloat(t.dataset.x||px),dy=py-parseFloat(t.dataset.y||py);
+const tx=parseFloat(t.dataset.x||px)+dx*(0.15+i*0.02),ty=parseFloat(t.dataset.y||py)+dy*(0.15+i*0.02);
+t.dataset.x=tx;t.dataset.y=ty;t.style.left=tx+'px';t.style.top=ty+'px';t.style.opacity=1-(i/trails.length)*0.8;
+const d=Math.hypot(tx-mx,ty-my);t.style.transform=`translate(-50%,-50%) scale(${Math.max(0.3,1-d*0.01)})`;px=tx;py=ty;
+});
+requestAnimationFrame(animate);
 }
-document.addEventListener('mousemove', (e) => {
-mouseX = e.clientX;
-mouseY = e.clientY;
-dot.style.left = e.clientX + 'px';
-dot.style.top = e.clientY + 'px';
-});
-document.querySelectorAll('.hover-target').forEach(el => {
-el.addEventListener('mouseenter', () => {
-ring.style.width = '56px';
-ring.style.height = '56px';
-ring.style.borderColor = '#58a6ff';
-});
-el.addEventListener('mouseleave', () => {
-ring.style.width = '40px';
-ring.style.height = '40px';
-ring.style.borderColor = 'rgba(88,166,255,0.3)';
-});
-});
-function animateTrails() {
-ringX += (mouseX - ringX) * 0.12;
-ringY += (mouseY - ringY) * 0.12;
-ring.style.left = ringX + 'px';
-ring.style.top = ringY + 'px';
-let prevX = mouseX, prevY = mouseY;
-trails.forEach((trail, i) => {
-const dx = prevX - parseFloat(trail.dataset.x || prevX);
-const dy = prevY - parseFloat(trail.dataset.y || prevY);
-const tx = parseFloat(trail.dataset.x || prevX) + dx * (0.15 + i * 0.02);
-const ty = parseFloat(trail.dataset.y || prevY) + dy * (0.15 + i * 0.02);
-trail.dataset.x = tx;
-trail.dataset.y = ty;
-trail.style.left = tx + 'px';
-trail.style.top = ty + 'px';
-const opacity = 1 - (i / trails.length) * 0.8;
-trail.style.opacity = opacity;
-const dist = Math.hypot(tx - mouseX, ty - mouseY);
-trail.style.transform = `translate(-50%, -50%) scale(${Math.max(0.3, 1 - dist * 0.01)})`;
-prevX = tx;
-prevY = ty;
-});
-requestAnimationFrame(animateTrails);
-}
-animateTrails();
+animate();
 </script>
 </body>
 </html>

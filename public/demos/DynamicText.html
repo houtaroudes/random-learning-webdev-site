@@ -8,9 +8,9 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117,#1a1a2e,#0d1117);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .container{width:100%;max-width:600px;text-align:center}
-.demo-title{color:#fff;margin-bottom:48px;font-size:1.8rem;font-weight:300}
-.demo-title span{color:#58a6ff;font-weight:600}
-.text-display{min-height:120px;display:flex;align-items:center;justify-content:center}
+.title{color:#fff;margin-bottom:48px;font-size:1.5rem;font-weight:300}
+.title em{font-style:normal;color:#58a6ff;font-weight:600}
+.text-display{min-height:120px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
 .char-animate{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:#58a6ff;display:inline-block;opacity:0;transform:translateY(20px) rotateX(40deg);animation:charAppear .5s cubic-bezier(.34,1.56,.64,1) forwards}
 .char-animate:nth-child(1){animation-delay:.05s}
 .char-animate:nth-child(2){animation-delay:.1s}
@@ -28,7 +28,7 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 </head>
 <body>
 <div class="container">
-<h1 class="demo-title">⌨️ <span>Dynamic</span> Text</h1>
+<div class="title">Dynamic <em>Text</em></div>
 <div class="text-display" id="charDisplay">
 <span class="char-animate">H</span><span class="char-animate">e</span><span class="char-animate">l</span><span class="char-animate">l</span><span class="char-animate">o</span>
 <span class="char-animate" style="width:.5em"></span>
@@ -37,45 +37,16 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#0d1117
 <div class="typewriter-text" id="typewriter"></div>
 <div class="controls">
 <input type="text" id="textInput" placeholder="Type something..." value="Dynamic Text Animation">
-<button id="animateBtn">▶ Animate</button>
+<button id="animateBtn">Animate</button>
 </div>
 </div>
 <script>
-const charDisplay = document.getElementById('charDisplay');
-const typewriter = document.getElementById('typewriter');
-const textInput = document.getElementById('textInput');
-const animateBtn = document.getElementById('animateBtn');
-function animateText(text) {
-charDisplay.innerHTML = '';
-const chars = text.split('');
-chars.forEach((ch, i) => {
-const span = document.createElement('span');
-span.className = 'char-animate';
-span.textContent = ch;
-span.style.animationDelay = `${i * 0.06}s`;
-charDisplay.appendChild(span);
-});
-}
-function animateTypewriter(text) {
-typewriter.innerHTML = '';
-let i = 0;
-const iv = setInterval(() => {
-if (i >= text.length) {
-clearInterval(iv);
-typewriter.innerHTML = text + '<span class="cursor">|</span>';
-return;
-}
-typewriter.innerHTML = text.slice(0, i + 1) + '<span class="cursor">|</span>';
-i++;
-}, 45);
-}
-animateBtn.addEventListener('click', () => {
-const text = textInput.value || 'Dynamic Text Animation';
-animateText(text);
-setTimeout(() => animateTypewriter(text), text.length * 60 + 300);
-});
-textInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') animateBtn.click(); });
-setTimeout(() => animateTypewriter('Character by character animation...'), 500);
+const charDisplay=document.getElementById('charDisplay'),typewriter=document.getElementById('typewriter'),textInput=document.getElementById('textInput'),animateBtn=document.getElementById('animateBtn');
+function animateText(t){charDisplay.innerHTML='';t.split('').forEach((c,i)=>{const s=document.createElement('span');s.className='char-animate';s.textContent=c;s.style.animationDelay=`${i*0.06}s`;charDisplay.appendChild(s);});}
+function animateTypewriter(t){typewriter.innerHTML='';let i=0;const iv=setInterval(()=>{if(i>=t.length){clearInterval(iv);typewriter.innerHTML=t+'<span class="cursor">|</span>';return;}typewriter.innerHTML=t.slice(0,i+1)+'<span class="cursor">|</span>';i++;},45);}
+animateBtn.addEventListener('click',()=>{const t=textInput.value||'Dynamic Text Animation';animateText(t);setTimeout(()=>animateTypewriter(t),t.length*60+300);});
+textInput.addEventListener('keydown',(e)=>{if(e.key==='Enter')animateBtn.click();});
+setTimeout(()=>animateTypewriter('Character by character animation...'),500);
 </script>
 </body>
 </html>

@@ -12,7 +12,8 @@ body{font-family:'Segoe UI',sans-serif;overflow:hidden;min-height:100vh}
 .overlay{position:fixed;inset:0;z-index:1;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,0.3) 100%)}
 .content{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center}
 .card{background:rgba(255,255,255,0.12);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:48px 40px;max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
-.card h1{color:#fff;font-size:2rem;margin-bottom:12px;text-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.card .deco-bar{width:40px;height:3px;background:rgba(255,255,255,0.3);margin:0 auto 20px;border-radius:2px}
+.card h1{color:#fff;font-size:2rem;margin-bottom:12px;text-shadow:0 2px 10px rgba(0,0,0,0.1);letter-spacing:.02em}
 .card p{color:rgba(255,255,255,0.7);font-size:1.05rem;line-height:1.7;margin-bottom:24px}
 .color-dots{display:flex;gap:12px;justify-content:center;margin-bottom:24px}
 .color-dot{width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);animation:pulse 2s ease infinite}
@@ -21,7 +22,7 @@ body{font-family:'Segoe UI',sans-serif;overflow:hidden;min-height:100vh}
 .color-dot:nth-child(3){background:#23a6d5;animation-delay:0.8s}
 .color-dot:nth-child(4){background:#23d5ab;animation-delay:1.2s}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
-.tagline{color:rgba(255,255,255,0.3);font-size:.85rem;letter-spacing:.15em;text-transform:uppercase}
+.tagline{color:rgba(255,255,255,0.3);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase}
 .floating-shapes{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
 .floating-shapes span{position:absolute;display:block;width:20px;height:20px;background:rgba(255,255,255,0.06);border-radius:50%;animation:float linear infinite;bottom:-20px}
 .floating-shapes span:nth-child(1){left:10%;width:40px;height:40px;animation-duration:15s;animation-delay:0s}
@@ -42,9 +43,10 @@ body{font-family:'Segoe UI',sans-serif;overflow:hidden;min-height:100vh}
 <div class="content">
 <div class="card">
 <div class="color-dots"><div class="color-dot"></div><div class="color-dot"></div><div class="color-dot"></div><div class="color-dot"></div></div>
+<div class="deco-bar"></div>
 <h1>Animated Gradient</h1>
 <p>A mesmerizing animated gradient background using CSS keyframes. The colors shift smoothly through a range of hues, creating a dynamic and visually engaging backdrop.</p>
-<div class="tagline">✦ CSS Keyframes ✦</div>
+<div class="tagline">CSS Keyframes Animation</div>
 </div>
 </div>
 </body>
